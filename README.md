@@ -1,32 +1,69 @@
-# React + TypeScript + Vite
+# Rastro Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Web de compraventa de segunda mano hecha con React + RTK Query, parte de la entrega React de Full Stack FT Laborra.
 
-Currently, two official plugins are available:
+## Puesta en marcha
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+1. Instala dependencias:
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+2. Arranca json-server en el puerto 3001:
+
+```bash
+npm run api
+```
+
+3. Arranca la web en modo desarrollo:
+
+```bash
+npm run dev
+```
+
+4. Abre `http://localhost:5173`
+
+## Capturas por página
+
+| Captura | Qué mostrar |
+|---|---|
+| Listado con filtros | Página `/` con al menos un filtro aplicado (ej. categoría Coches o precio máximo 200) |
+| Ficha como comprador | Página `/listings/listing-1` (Seat Ibiza) con sus 2 ofertas y sin botón de editar/borrar |
+| Ficha como vendedor | Página de un anuncio tuyo (ej. como Luis Martín) con el panel "Tu anuncio" y botón Guardar/Borrar |
+| Publicar | Página `/listings/new` con el formulario de publicación |
+
+## Tecnologías
+
+- React 19 + TypeScript + Vite
+- Redux Toolkit + RTK Query
+- React Router DOM
+- json-server (primera parte)
+- CSS Modules
+
+## Despliegue
+
+- **Web (Netlify):** https://rastro-web-marcodemiguel.netlify.app
+- **API (Render):** https://api-rastro-marcodemiguel.onrender.com/api
+
+## Variables de entorno
+
+### Desarrollo local (`.env`)
+
+```
+VITE_API_URL=http://localhost:3000/api
+```
+
+### Render (API)
+
+| Variable | Valor |
+|---|---|
+| `MONGODB_URI` | Dirección de MongoDB Atlas |
+| `DB_NAME` | `rastro` |
+| `CORS_ORIGIN` | `https://rastro-web-marcodemiguel.netlify.app` |
+
+### Netlify (Web)
+
+| Variable | Valor |
+|---|---|
+| `VITE_API_URL` | `https://api-rastro-marcodemiguel.onrender.com/api` |

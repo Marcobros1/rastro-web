@@ -25,3 +25,13 @@ Cambia quién aparece como vendedor y si el vendedor ve el panel de editar/borra
 
 La API suma una visita en cada `GET /listings/:id`. Al volver al listado y entrar otra vez, React Router reusa el componente y RTK Query sirve la caché sin hacer una petición nueva, por lo que las visitas no suben. Al recargar, la página se monta de nuevo y se hace una petición fresca a la API, que sí suma la visita.
 
+## Diario de errores PARTE 6
+
+| # | Error | Causa | Solución |
+|---|-------|-------|----------|
+| 1 | `GET /api/listings` devolvía `[]` en Render | No se habían cargado los datos en MongoDB Atlas | Ejecutar script de `mongosh` contra Atlas con los 8 anuncios y 5 ofertas |
+| 2 | `blocked by CORS policy` al cambiar precio o borrar | Falta `PATCH` o `DELETE` en `Access-Control-Allow-Methods` | Añadir ambos métodos a la cabecera CORS de la API Express |
+| 3 | `blocked by CORS policy` al ofertar o publicar | Falta `Content-Type` en `Access-Control-Allow-Headers` | Añadir `Content-Type` a las cabeceras permitidas de CORS |
+| 4 | `buyerId no tiene un formato válido` / `sellerId no tiene un formato válido` | La API Express espera `buyerId` y `sellerId` como strings, no objetos `buyer`/`seller` | Enviar `buyerId: user.id` y `sellerId: user.id` desde el frontend |
+| 5 | `/listings/new` mostraba "Ese anuncio no existe." | La ruta `listings/new` estaba después de `listings/:id` en React Router | Mover la ruta `/listings/new` antes de `/listings/:id` |
+
