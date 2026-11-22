@@ -60,7 +60,7 @@ export function NewListingPage() {
         status: "AVAILABLE",
         views: 0,
         publishedAt: new Date().toISOString(),
-        seller: user,
+        sellerId: user.id,
         attributes: {},
       }).unwrap();
       navigate(`/listings/${created.id}`);

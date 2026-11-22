@@ -27,7 +27,7 @@ export function OfferForm({ listingId }: OfferFormProps) {
         amount: Number(amount),
         status: "PENDING",
         createdAt: new Date().toISOString(),
-        buyer: user, // ya es { id, name }
+        buyerId: user.id,
       }).unwrap();
       setAmount("");
     } catch (e) {
