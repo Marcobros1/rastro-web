@@ -22,8 +22,10 @@ export type Listing = ListingSummary & {
   attributes: Record<string, string | number>;
 };
 
-// Un anuncio nuevo: todo menos el id, que lo pone json-server
-export type NewListing = Omit<Listing, "id">;
+// Un anuncio nuevo: todo menos el id. La API espera sellerId, no seller
+export type NewListing = Omit<Listing, "id" | "seller"> & {
+  sellerId: string;
+};
 
 export type Offer = {
   id: string;
@@ -34,8 +36,10 @@ export type Offer = {
   buyer: { id: string; name: string };
 };
 
-// json-server guarda lo que le mandes: hay que mandarlo todo
-export type NewOffer = Omit<Offer, "id">;
+// Una oferta nueva: la API espera buyerId, no buyer
+export type NewOffer = Omit<Offer, "id" | "buyer"> & {
+  buyerId: string;
+};
 
 // Los filtros del listado. Todos opcionales
 export type ListingFilters = {
