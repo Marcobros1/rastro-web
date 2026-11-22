@@ -5,3 +5,8 @@
 
 Porque `searchParams` es inmutable. Modificarlo directamente no notifica a React Router. Se debe crear una copia nueva, mutar la copia y pasarla a `setSearchParams`. Así React detecta cambio de referencia y actualiza la URL y el componente. Apunte 01: "No cambies el estado: crea uno nuevo".
 
+## Pregunta 2 — PARTE 4
+OfferForm y OfferList son hermanos y no se pasan nada. ¿Cómo se entera la lista de que hay una oferta nueva?
+
+A través de RTK Query. Cuando `createOffer` tiene éxito, invalida el tag `"Offer"`, lo que obliga a `useGetOffersQuery` a volver a fetchar los datos automáticamente sin recargar la página.
+
