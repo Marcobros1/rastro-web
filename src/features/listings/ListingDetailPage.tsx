@@ -7,10 +7,15 @@ import styles from "./ListingDetailPage.module.css";
 
 export function ListingDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const { data: listing, isLoading, error } = useGetListingQuery(id!);
+<<<<<<< HEAD
+  const { data: listing, isLoading, error } = useGetListingQuery(id ?? "", {
+    skip: !id,
+  });
 
+  if (!id) return <div>Ese anuncio no existe. <Link to="/">Volver</Link></div>;
   if (isLoading) return <div className="loading">Cargando…</div>;
-  if (error || !listing) return <div>Ese anuncio no existe. <Link to="/">Volver</Link></div>;
+  if (error || !listing)
+    return <div>Ese anuncio no existe. <Link to="/">Volver</Link></div>;
 
   return (
     <>
