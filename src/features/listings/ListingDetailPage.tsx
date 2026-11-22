@@ -3,14 +3,23 @@ import { useGetListingQuery } from "../../app/api";
 import { formatPrice, CATEGORY_LABELS } from "../../app/labels";
 import { StatusBadge } from "./StatusBadge";
 import { OfferList } from "../offers/OfferList";
+import { OfferForm } from "../offers/OfferForm";
+import { useCurrentUser } from "../../features/users/CurrentUserContext";
 import styles from "./ListingDetailPage.module.css";
 
 export function ListingDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const { data: listing, isLoading, error } = useGetListingQuery(id!);
+  const { user } = useCurrentUser();
+  const { data: listing, isLoading, error } = useGetListingQuery(id ?? "", {
+    skip: !id,
+  });
 
+  if (!id) return <div>Ese anuncio no existe. <Link to="/">Volver</Link></div>;
   if (isLoading) return <div className="loading">Cargando…</div>;
-  if (error || !listing) return <div>Ese anuncio no existe. <Link to="/">Volver</Link></div>;
+  if (error || !listing)
+    return <div>Ese anuncio no existe. <Link to="/">Volver</Link></div>;
+
+  const isSeller = listing.seller.id === user.id;
 
   return (
     <>
@@ -41,7 +50,14 @@ export function ListingDetailPage() {
           </dl>
         </article>
         <aside className={styles.side}>
-          <OfferList listingId={listing.id} />
+          {isSeller ? null : listing.status === "AVAILABLE" ? (
+            <>
+              <OfferForm listingId={listing.id} />
+              <OfferList listingId={listing.id} />
+            </>
+          ) : (
+            <p className="loading">Este anuncio ya no admite ofertas.</p>
+          )}
         </aside>
       </div>
     </>
