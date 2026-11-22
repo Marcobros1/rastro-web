@@ -19,11 +19,10 @@ export const api = createApi({
       query: (id) => `/listings/${id}`,
       providesTags: (_result, _error, id) => [{ type: "Listing", id }],
     }),
-    // GET /offers?listingId=listing-1
+    // GET /listings/:id/offers
     getOffers: builder.query<Offer[], string>({
       query: (listingId) => ({
-        url: "/offers",
-        params: { listingId, _sort: "-createdAt" },
+        url: `/listings/${listingId}/offers`,
       }),
       providesTags: ["Offer"],
     }),
