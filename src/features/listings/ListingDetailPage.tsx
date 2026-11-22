@@ -7,7 +7,6 @@ import styles from "./ListingDetailPage.module.css";
 
 export function ListingDetailPage() {
   const { id } = useParams<{ id: string }>();
-<<<<<<< HEAD
   const { data: listing, isLoading, error } = useGetListingQuery(id ?? "", {
     skip: !id,
   });
