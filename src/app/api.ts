@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { ListingFilters, ListingSummary, Listing, Offer, NewOffer } from "./types";
+import type { ListingFilters, ListingSummary, Listing, Offer, NewOffer, NewListing } from "./types";
 
 export const api = createApi({
   reducerPath: "api",
@@ -36,6 +36,15 @@ export const api = createApi({
       }),
       invalidatesTags: ["Offer"],
     }),
+    // POST /listings
+    createListing: builder.mutation<Listing, NewListing>({
+      query: (body) => ({
+        url: "/listings",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["Listing"],
+    }),
   }),
 });
 
@@ -44,4 +53,5 @@ export const {
   useGetListingQuery,
   useGetOffersQuery,
   useCreateOfferMutation,
+  useCreateListingMutation,
 } = api;
