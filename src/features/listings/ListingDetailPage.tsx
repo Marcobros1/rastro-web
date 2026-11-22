@@ -4,6 +4,7 @@ import { formatPrice, CATEGORY_LABELS } from "../../app/labels";
 import { StatusBadge } from "./StatusBadge";
 import { OfferList } from "../offers/OfferList";
 import { OfferForm } from "../offers/OfferForm";
+import { SellerPanel } from "./SellerPanel";
 import { useCurrentUser } from "../../features/users/CurrentUserContext";
 import styles from "./ListingDetailPage.module.css";
 
@@ -50,7 +51,9 @@ export function ListingDetailPage() {
           </dl>
         </article>
         <aside className={styles.side}>
-          {isSeller ? null : listing.status === "AVAILABLE" ? (
+          {isSeller ? (
+            <SellerPanel listing={listing} />
+          ) : listing.status === "AVAILABLE" ? (
             <>
               <OfferForm listingId={listing.id} />
               <OfferList listingId={listing.id} />
