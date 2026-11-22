@@ -9,6 +9,7 @@ export function Header() {
         <Link to="/" className={styles.logo}>rastro</Link>
         <NavLink to="/" end>Anuncios</NavLink>
         <NavLink to="/listings/new">Publicar</NavLink>
+        <NavLink to="/stats">Estadísticas</NavLink>
         <span className={styles.spacer} />
         <div className={styles.user}>
           <UserSelector />

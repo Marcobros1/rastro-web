@@ -9,7 +9,8 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "api": "json-server db.json -p 3001 --watch",
-    "htmlhint": "htmlhint \"**/*.html\" --ignore \"dist/**,build/**,coverage/**\""
+    "htmlhint": "htmlhint \"**/*.html\" --ignore \"dist/**,build/**,coverage/**\"",
+    "test": "vitest run"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.15.0",
@@ -20,14 +21,18 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^8.0.0",
+    "@testing-library/react": "^16.3.3",
     "@types/node": "^24.19.2",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
     "htmlhint": "^1.9.2",
+    "jsdom": "^31.0.1",
     "json-server": "^1.0.0-beta.15",
     "oxlint": "^1.90.0",
     "typescript": "~7.0.2",
-    "vite": "^8.3.6"
+    "vite": "^8.3.6",
+    "vitest": "^5.1.1"
   }
 }

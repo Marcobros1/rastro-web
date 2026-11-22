@@ -61,6 +61,19 @@ export const api = createApi({
       }),
       invalidatesTags: ["Listing"],
     }),
+    // PATCH /offers/:id  (aceptar oferta)
+    acceptOffer: builder.mutation<Offer, { id: string; status: "ACCEPTED" | "REJECTED" }>({
+      query: ({ id, status }) => ({
+        url: `/offers/${id}`,
+        method: "PATCH",
+        body: { status },
+      }),
+      invalidatesTags: ["Listing", "Offer"],
+    }),
+    // GET /listings/stats (estadísticas por categoría)
+    getStats: builder.query<{ _id: string; total: number }[], void>({
+      query: () => "/listings/stats",
+    }),
   }),
 });
 
@@ -72,4 +85,6 @@ export const {
   useCreateListingMutation,
   useUpdatePriceMutation,
   useDeleteListingMutation,
+  useAcceptOfferMutation,
+  useGetStatsQuery,
 } = api;
