@@ -10,17 +10,18 @@ type ListingCardProps = {
 };
 
 export function ListingCard({ listing }: ListingCardProps) {
+  const listingId = listing.id ?? listing._id!;
   const { isFavorite, toggleFavorite } = useFavorites();
-  const fav = isFavorite(listing.id);
+  const fav = isFavorite(listingId);
 
   return (
-    <Link to={`/listings/${listing.id}`} className={styles.card}>
+    <Link to={`/listings/${listingId}`} className={styles.card}>
       <button
         type="button"
         className={`${styles.favoriteBtn} ${fav ? styles.filled : ""}`}
         onClick={(e) => {
           e.stopPropagation();
-          toggleFavorite(listing.id);
+          toggleFavorite(listingId);
         }}
         aria-label={fav ? "Quitar de favoritos" : "Añadir a favoritos"}
       >
