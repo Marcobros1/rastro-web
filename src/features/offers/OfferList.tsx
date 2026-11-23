@@ -9,18 +9,17 @@ type OfferListProps = {
 };
 
 export function OfferList({ listingId, isSeller = false }: OfferListProps) {
-  const { data: offers, isLoading } = useGetOffersQuery(listingId);
-  const [acceptOffer] = useAcceptOfferMutation();
+  const { data: rawOffers, isLoading } = useGetOffersQuery(listingId);
+  const [updateOffer] = useAcceptOfferMutation();
+  const offers = rawOffers?.map((o) => ({ ...o, id: o._id! }));
 
-  async function handleAccept(offerId: string) {
-    if (!window.confirm("¿Aceptas esta oferta? El anuncio pasará a Reservado.")) {
-      return;
-    }
-    try {
-      await acceptOffer({ id: offerId, status: "ACCEPTED" }).unwrap();
-    } catch (_e) {
-      // El error se muestra en la consola del navegador si es necesario
-    }
+  async function handleUpdate(offerId: string, status: "ACCEPTED" | "REJECTED") {
+    const question =
+      status === "ACCEPTED"
+        ? "¿Aceptas esta oferta? El anuncio pasará a Reservado."
+        : "¿Rechazas esta oferta?";
+    if (!window.confirm(question)) return;
+    await updateOffer({ id: offerId, status }).unwrap();
   }
 
   if (isLoading) return <div className="loading">Cargando ofertas…</div>;
@@ -37,13 +36,22 @@ export function OfferList({ listingId, isSeller = false }: OfferListProps) {
             <strong>{formatPrice(offer.amount)}</strong>
             <StatusBadge status={offer.status} />
             {isSeller && offer.status === "PENDING" && (
-              <button
-                type="button"
-                className={styles.acceptBtn}
-                onClick={() => handleAccept(offer.id)}
-              >
-                Aceptar
-              </button>
+              <div className={styles.actions}>
+                <button
+                  type="button"
+                  className={styles.acceptBtn}
+                  onClick={() => handleUpdate(offer.id, "ACCEPTED")}
+                >
+                  Aceptar
+                </button>
+                <button
+                  type="button"
+                  className={`danger ${styles.rejectBtn}`}
+                  onClick={() => handleUpdate(offer.id, "REJECTED")}
+                >
+                  Rechazar
+                </button>
+              </div>
             )}
           </div>
         ))
