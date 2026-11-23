@@ -6,6 +6,7 @@ export type OfferStatus = "PENDING" | "ACCEPTED" | "REJECTED";
 // Lo que usa el listado (GET /listings)
 export type ListingSummary = {
   id: string;
+  _id?: string; // MongoDB devuelve _id, mapeamos a id en el frontend
   title: string;
   price: number;
   category: string;
@@ -29,6 +30,7 @@ export type NewListing = Omit<Listing, "id" | "seller"> & {
 
 export type Offer = {
   id: string;
+  _id?: string; // MongoDB devuelve _id
   listingId: string;
   amount: number;
   status: OfferStatus;

@@ -11,14 +11,17 @@ import styles from "./ListingDetailPage.module.css";
 export function ListingDetailPage() {
   const { id } = useParams<{ id: string }>();
   const { user } = useCurrentUser();
-  const { data: listing, isLoading, error } = useGetListingQuery(id ?? "", {
+  const { data: rawListing, isLoading, error } = useGetListingQuery(id ?? "", {
     skip: !id,
   });
 
   if (!id) return <div>Ese anuncio no existe. <Link to="/">Volver</Link></div>;
   if (isLoading) return <div className="loading">Cargando…</div>;
-  if (error || !listing)
+  if (error || !rawListing)
     return <div>Ese anuncio no existe. <Link to="/">Volver</Link></div>;
+
+  // La API devuelve _id de MongoDB; mapeamos a id para el frontend
+  const listing = { ...rawListing, id: rawListing._id! };
 
   const isSeller = listing.seller.id === user.id;
 

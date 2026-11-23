@@ -10,7 +10,8 @@ import { useFavorites } from "../../features/favorites/useFavorites";
 export function ListingsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const filters: Filters = Object.fromEntries(searchParams);
-  const { data: listings, isLoading, error } = useGetListingsQuery(filters);
+  const { data: rawListings, isLoading, error } = useGetListingsQuery(filters);
+  const listings = rawListings?.map((l) => ({ ...l, id: l._id! })) ?? [];
   const { favorites } = useFavorites();
   const [onlyFavorites, setOnlyFavorites] = useState(false);
 
