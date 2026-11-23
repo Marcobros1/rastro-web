@@ -29,6 +29,9 @@ export function SellerPanel({ listing }: SellerPanelProps) {
   }
 
   async function remove() {
+    if (!window.confirm("¿Estás seguro de que quieres borrar este anuncio?")) {
+      return;
+    }
     try {
       await deleteListing(listing.id).unwrap();
       navigate("/");

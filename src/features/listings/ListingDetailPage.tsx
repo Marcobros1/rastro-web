@@ -52,7 +52,10 @@ export function ListingDetailPage() {
         </article>
         <aside className={styles.side}>
           {isSeller ? (
-            <SellerPanel listing={listing} />
+            <>
+              <SellerPanel listing={listing} />
+              <OfferList listingId={listing.id} isSeller />
+            </>
           ) : listing.status === "AVAILABLE" ? (
             <>
               <OfferForm listingId={listing.id} />

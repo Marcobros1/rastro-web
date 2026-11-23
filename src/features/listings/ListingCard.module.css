@@ -1,4 +1,5 @@
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -64,4 +65,31 @@
   gap: 8px;
   font-size: 14px;
   color: var(--muted);
+}
+
+/* Botón favorito (corazón) */
+.favoriteBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--muted);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.favoriteBtn:hover {
+  background: white;
+}
+
+.favoriteBtn.filled {
+  color: var(--danger);
 }

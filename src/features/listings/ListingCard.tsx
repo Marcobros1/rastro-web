@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import type { ListingSummary } from "../../app/types";
 import { formatPrice, CATEGORY_LABELS } from "../../app/labels";
 import { StatusBadge } from "./StatusBadge";
+import { useFavorites } from "../../features/favorites/useFavorites";
 import styles from "./ListingCard.module.css";
 
 type ListingCardProps = {
@@ -9,8 +10,22 @@ type ListingCardProps = {
 };
 
 export function ListingCard({ listing }: ListingCardProps) {
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const fav = isFavorite(listing.id);
+
   return (
     <Link to={`/listings/${listing.id}`} className={styles.card}>
+      <button
+        type="button"
+        className={`${styles.favoriteBtn} ${fav ? styles.filled : ""}`}
+        onClick={(e) => {
+          e.stopPropagation();
+          toggleFavorite(listing.id);
+        }}
+        aria-label={fav ? "Quitar de favoritos" : "Añadir a favoritos"}
+      >
+        {fav ? "❤️" : "🤍"}
+      </button>
       <div className={`${styles.image} ${styles[listing.category as keyof typeof styles]}`}>
         {CATEGORY_LABELS[listing.category]}
       </div>

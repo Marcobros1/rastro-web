@@ -18,3 +18,19 @@
   padding: 10px 0;
   border-bottom: 1px solid var(--line);
 }
+
+.acceptBtn {
+  font: inherit;
+  font-weight: 600;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.acceptBtn:hover {
+  opacity: 0.9;
+}
